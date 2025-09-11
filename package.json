@@ -22,6 +22,15 @@
     "typescript-eslint": "^8.42.0"
   },
   "dependencies": {
+    "esbuild-plugin-tsc": "^0.5.0",
+    "reflect-metadata": "^0.2.2",
     "zod": "^4.1.5"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.fixAll.eslint": "always",
+    "source.addMissingImports": "always",
+    "source.sortMembers": "always",
+    "source.organizeImports": "always"
   }
 }

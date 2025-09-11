@@ -1,12 +1,22 @@
 {
    "compilerOptions": {
+    "outDir": "dist",
     "target": "ES2020",
     "module": "CommonJS",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "noImplicitOverride": true
+    "noImplicitOverride": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl":".",
+    "paths":{
+      "@application/*": ["src/application/*"],
+      "@kernel/*": ["src/kernel/*"],
+      "@main/*": ["src/main/*"],
+      "@shared/*": ["src/shared/*"]
     }
+   }
 }
    

@@ -1,22 +1,28 @@
-import { z } from 'zod';
+import { Schema } from '../../kernel/decorators/Schema';
+import { HelloUseCase} from '@application/usecases/HelloUseCase';
+import { HelloBody, helloSchema } from './schemas/helloSchema';
 import { Controller } from '../contracts/Controller';
-
-const schema = z.object({
-  account: z.object({
-    name: z.string().min(1, 'Name is required'),
-  }),
-  email: z.string().min(1, 'Email is required').email('Invalid email'),
-});
+import { Injectable } from '@kernel/decorators/Injectable';
 
 
+@Injectable()
+@Schema(helloSchema)
 export class HelloController extends Controller<unknown> {
-  async handle(request: Controller.Request): Promise<Controller.Response<unknown>> {
-    const parsedBody = schema.parse(request.body);
+  constructor(private readonly helloUseCase: HelloUseCase) { 
+    super();
+  }
+ 
+  protected override async handle(
+    request: Controller.Request<HelloBody>,
+  ): Promise<Controller.Response<unknown>> {
+   const result = await this.helloUseCase.execute({
+      email: request.body.email,
+    });
     
-      return{
+    return{
       statusCode: 200,
       body: {
-      parsedBody,
+        result,
       }, 
     };
   }
