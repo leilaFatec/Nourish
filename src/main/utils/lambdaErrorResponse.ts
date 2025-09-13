@@ -12,7 +12,7 @@ export function lambdaErrorResponse({
   statusCode,
 }: ILambdaErrorResponseParams) {
    return {
-      statusCode: 500,
+      statusCode,
       body: JSON.stringify({
         error:{
           code,

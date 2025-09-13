@@ -1,13 +1,16 @@
-import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyEventV2WithJWTAuthorizer, APIGatewayProxyResultV2 } from "aws-lambda";
 import { ZodError} from 'zod';
 
+import { Registry } from '@kernel/di/Registry';
 import { Controller} from "../../application/contracts/Controller";
 import { ErrorCode} from '../../application/errors/ErrorCode';
 import { HttpError } from "../../application/errors/http/HttpError";
 import { lambdaBodyParser } from '../utils/lambdaBodyParser';
 import { lambdaErrorResponse } from "../utils/lambdaErrorResponse";
 import { ApplicationError } from "@application/errors/application/http/ApplicationError";
+import { Constructor } from '@shared/types/Constructor';
 
+type Event = APIGatewayProxyEventV2 | APIGatewayProxyEventV2WithJWTAuthorizer;
 
 export function lambdaHttpAdapter(controller: Controller<unknown>) {
   return async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {         
@@ -19,7 +22,7 @@ export function lambdaHttpAdapter(controller: Controller<unknown>) {
       const response =  await controller.execute({
         body,
         params,
-        queryParams,  
+        queryParams, 
       });
     
       return{
@@ -37,8 +40,7 @@ export function lambdaHttpAdapter(controller: Controller<unknown>) {
        })),
       });
       }
-     
-      
+           
      if (error instanceof HttpError){
        return lambdaErrorResponse(error);
      }

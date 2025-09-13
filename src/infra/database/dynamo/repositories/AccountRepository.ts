@@ -1,10 +1,10 @@
 import { Account } from "@application/entities/Account";
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { PutCommand, PutCommandInput, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import {  dynamoClient } from "@infra/gateways/clients/dynamoClient";
 import { Injectable } from "@kernel/decorators/Injectable";
 import { AppConfig } from "@shared/config/AppConfig";
 import { AccountItem } from "../items/AccountItem";
-import { QueryCommand } from "@aws-sdk/client-dynamodb";
+
 
 @Injectable()
 export class AccountRepository{
