@@ -4,37 +4,52 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "typecheck": "tsc --noEmit",
+    "dev:email": "email dev --dir ./src/infra/emails/templates"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.5.2",
   "devDependencies": {
-    "@eslint/js": "^9.34.0",
+    "@eslint/js": "^9.35.0",
     "@types/aws-lambda": "^8.10.152",
-    "@types/node": "^24.3.1",
-    "eslint": "^9.34.0",
-    "globals": "^16.3.0",
-    "jiti": "^2.5.1",
-    "serverless-esbuild": "^1.55.1",
+    "@types/node": "^24.5.1",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "dotenv": "^17.2.2",
+    "esbuild-plugin-tsc": "^0.5.0",
+    "eslint": "^9.35.0",
+    "globals": "^16.4.0",
+    "react-email": "^4.2.11",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.42.0"
+    "typescript-eslint": "^8.44.0"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.887.0",
-    "@aws-sdk/client-dynamodb": "^3.887.0",
-    "@aws-sdk/lib-dynamodb": "^3.887.0",
-    "esbuild-plugin-tsc": "^0.5.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.890.0",
+    "@aws-sdk/client-dynamodb": "^3.890.0",
+    "@aws-sdk/client-s3": "^3.890.0",
+    "@aws-sdk/client-sqs": "^3.890.0",
+    "@aws-sdk/lib-dynamodb": "^3.890.0",
+    "@aws-sdk/s3-presigned-post": "^3.890.0",
+    "@react-email/column": "^0.0.13",
+    "@react-email/heading": "^0.0.15",
+    "@react-email/html": "^0.0.11",
+    "@react-email/render": "^1.2.3",
+    "@react-email/row": "^0.0.12",
+    "@react-email/section": "^0.0.16",
+    "@react-email/tailwind": "^1.2.2",
+    "@react-email/text": "^0.1.5",
     "ksuid": "^3.0.0",
+    "openai": "^5.20.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "reflect-metadata": "^0.2.2",
-    "zod": "^4.1.5"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "always",
-    "source.fixAll.eslint": "always",
-    "source.addMissingImports": "always",
-    "source.sortMembers": "always",
-    "source.organizeImports": "always"
+    "ts-dedent": "^2.2.0",
+    "zod": "^4.1.9"
   }
 }

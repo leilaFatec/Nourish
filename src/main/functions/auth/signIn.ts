@@ -1,10 +1,8 @@
 import 'reflect-metadata';
 
-import { Registry } from '@kernel/di/Registry';
-import { SignInController } from '@application/controllers/SignInController';
+import { SignInController } from '@application/controllers/auth/SignInController';
 import { lambdaHttpAdapter } from '@main/adapters/lambdaHttpAdapter';
 
+export const handler = lambdaHttpAdapter(SignInController);
 
-const controller = Registry.getInstance().resolve(SignInController);
 
-export const handler = lambdaHttpAdapter(controller);

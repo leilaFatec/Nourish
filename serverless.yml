@@ -7,10 +7,19 @@ provider:
   runtime: nodejs22.x
   memorySize: 128
   stage: ${opt:stage, 'dev'}
-  environment: ${file(./src/sls/config/env.yml)}
+  environment: ${file(./sls/config/env.yml)}
   iam: 
-    role: ${file(./src/sls/config/role.yml)}
-    
+    role: ${file(./sls/config/role.yml)}
+  httpApi:
+    disableDefaultEndpoint: ${env:DISABLE_DEFAULT_APIGW_ENDPOINT, false}
+    authorizers:
+      CognitoAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: !GetAtt UserPool.ProviderURL
+        audience:
+          - !Ref UserPoolClient
+
 package:
   individually: true
 
@@ -20,17 +29,17 @@ custom:
 
 build: 
   esbuild:
-    configFile: ./src/esbuild.config.mjs
-     
+    configFile: ./esbuild.config.mjs     
 
 functions:
-  - ${file(./src/sls/functions/auth.yml)}
-  
-
+  - ${file(./sls/functions/auth.yml)}
+  - ${file(./sls/functions/meals.yml)}
+ 
 resources:
-  - ${file(./src/sls/resources/UserPool.yml)}
-  - ${file(./src/sls/resources/MainTable.yml)}
+  - ${file(./sls/resources/UserPool.yml)}
+  - ${file(./sls/resources/MainTable.yml)}
 
+  
 
 
            

@@ -4,6 +4,7 @@ export class AccountItem {
   private readonly type = 'Account';
 
   private readonly keys: AccountItem.keys;  
+  static type: "Account";
 
   constructor(private readonly attrs: AccountItem.Attributes) {
     this.keys = {
@@ -18,7 +19,7 @@ export class AccountItem {
     return {
       ...this.keys,
       ...this.attrs,
-      type: this.type,
+      type: AccountItem.type,
     };
   }
    
@@ -36,15 +37,19 @@ export class AccountItem {
       createdAt: new Date(accountItem.createdAt),
     });
   }
+
   static getPK(accountId: string): AccountItem.keys['PK']{
     return `ACCOUNT#${accountId}`;
   }
+
   static getSK(accountId: string): AccountItem.keys['SK']{
     return `ACCOUNT#${accountId}`;
   }
+
   static getGSI1PK(email: string): AccountItem.keys['GSI1PK']{
     return `ACCOUNT#${email}`;
   }
+  
   static getGSI1SK(email: string): AccountItem.keys['GSI1SK']{
     return `ACCOUNT#${email}`;
   }
@@ -57,10 +62,11 @@ export class AccountItem {
      GSI1PK: `ACCOUNT#${string}`;
      GSI1SK: `ACCOUNT#${string}`;
     };
+
    export type Attributes = {
      id: string;
      email: string;
-     externalId: string;
+     externalId: string | undefined;
      createdAt: string;
    };  
 

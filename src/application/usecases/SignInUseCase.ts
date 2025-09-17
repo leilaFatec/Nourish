@@ -1,3 +1,4 @@
+import { InvalidCredentials } from "@application/errors/application/InvalidCredencials";
 import { AuthGateway } from "@infra/gateways/AuthGateway";
 import { Injectable } from "@kernel/decorators/Injectable";
 
@@ -12,6 +13,8 @@ export class SignInUseCase {
     email,
     password,
   }: SignInUseCase.Input): Promise<SignInUseCase.Output> {    
+    try{
+
     const{
       accessToken,
       refreshToken, 
@@ -21,7 +24,10 @@ export class SignInUseCase {
       accessToken,
       refreshToken,
     };
+  } catch {
+    throw new InvalidCredentials();
   }
+ }
 }
 
 export namespace SignInUseCase{
