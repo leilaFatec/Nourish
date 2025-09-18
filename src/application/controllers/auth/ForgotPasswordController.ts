@@ -1,5 +1,5 @@
 import { Controller } from '@application/contracts/Controller';
-import { ForgotPasswordUseCase } from '@application/usecases/ForgotPasswordUseCase';
+import { ForgotPasswordUseCase } from '@application/usecases/auth/ForgotPasswordUseCase';
 import { Injectable } from '@kernel/decorators/Injectable';
 import { Schema } from '@kernel/decorators/Schema';
 import { ForgotPasswordBody, forgotPasswordSchema } from './schemas/forgotPasswordSchema';

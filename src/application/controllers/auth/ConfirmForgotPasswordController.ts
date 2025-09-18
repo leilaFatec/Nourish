@@ -1,6 +1,6 @@
 import { Controller } from '@application/contracts/Controller';
 import { BadRequest } from '@application/errors/http/BadRequest';
-import { ConfirmForgotPasswordUseCase } from '@application/usecases/ConfirmForgotPasswordUseCase';
+import { ConfirmForgotPasswordUseCase } from '@application/usecases/auth/ConfirmForgotPasswordUseCase';
 import { Injectable } from '@kernel/decorators/Injectable';
 import { Schema } from '@kernel/decorators/Schema';
 import { ConfirmForgotPasswordBody, confirmForgotPasswordSchema } from './schemas/confirmForgotPasswordSchema';

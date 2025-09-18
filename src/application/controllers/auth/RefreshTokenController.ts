@@ -3,7 +3,7 @@ import { Injectable } from '@kernel/decorators/Injectable';
 import { signInSchema } from './schemas/signInSchema';
 import { Schema } from '@kernel/decorators/Schema';
 import { refreshTokenBody, refreshTokenSchema } from './schemas/refreshTokenSchema';
-import { RefreshTokenUseCase } from '@application/usecases/RefreshTokenUseCase';
+import { RefreshTokenUseCase } from '@application/usecases/auth/RefreshTokenUseCase';
 
 
 @Injectable()
