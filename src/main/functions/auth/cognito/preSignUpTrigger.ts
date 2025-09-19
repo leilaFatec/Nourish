@@ -1,7 +1,7 @@
-import { PreSignUpEmailTriggerEvent } from "aws-lambda";
+import { PreSignUpTriggerEvent } from "aws-lambda";
 
 
-export async function handler(event: PreSignUpEmailTriggerEvent){
+export async function handler(event: PreSignUpTriggerEvent){
   event.response.autoConfirmUser = true;  
   event.response.autoVerifyEmail = true;  
 

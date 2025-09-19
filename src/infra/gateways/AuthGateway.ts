@@ -1,11 +1,13 @@
 import { InvalidRefreshToken } from '@application/errors/application/InvalidRefreshToken';
-import { AdminDeleteUserCommand, 
+import { 
+  AdminDeleteUserCommand, 
   ConfirmForgotPasswordCommand, 
   ForgotPasswordCommand, 
   GetTokensFromRefreshTokenCommand,
   InitiateAuthCommand, 
-  SignUpCommand} from '@aws-sdk/client-cognito-identity-provider';
-import { cognitoClient } from '@infra/gateways/clients/cognitoClient';
+  SignUpCommand,
+} from '@aws-sdk/client-cognito-identity-provider';
+import { cognitoClient } from '@infra/clients/cognitoClient';
 import { Injectable } from '@kernel/decorators/Injectable';
 import { AppConfig } from '@shared/config/AppConfig';
 import { createHmac } from 'node:crypto';
@@ -88,6 +90,12 @@ export class AuthGateway{
     };
   } catch{
     throw new InvalidRefreshToken();
+
+    // if (error instanceof RefreshTokenReuseException) {
+      //   throw new InvalidRefreshToken();
+      // }
+
+      // throw error;
   }
 }  
 
@@ -102,11 +110,12 @@ async forgotPassword({
   
   await cognitoClient.send(command);
   }
+
   async confirmForgotPassword({
     email,  
     confirmationCode,
     password,
-}: AuthGateway.confirmForgotPasswordParams): Promise<void> {
+}: AuthGateway.ConfirmForgotPasswordParams): Promise<void> {
   const command = new ConfirmForgotPasswordCommand({
     ClientId: this.appConfig.auth.cognito.client.id,
     ConfirmationCode: confirmationCode,
@@ -114,8 +123,20 @@ async forgotPassword({
     Username: email,
     SecretHash: this.getSecretHash(email),
   });
+    
     await cognitoClient.send(command);
   } 
+
+  async deleteUser({
+    externalId,
+  }: AuthGateway.DeleteUserParams) {
+    const command = new AdminDeleteUserCommand({
+      UserPoolId: this.appConfig.auth.cognito.pool.id,
+      Username: externalId,
+    });
+
+    await cognitoClient.send(command);
+  }
 
 private getSecretHash(email: string): string{
   const { id, secret } = this.appConfig.auth.cognito.client;
@@ -125,6 +146,7 @@ private getSecretHash(email: string): string{
   .digest(`base64`)
 }
 }
+
 export namespace AuthGateway{
   export type SignUpParams = {
     email: string;
@@ -145,19 +167,27 @@ export namespace AuthGateway{
     accessToken: string;
     refreshToken: string;
   }
+
+  export type RefreshTokenParams = {
+    refreshToken: string;
+  }
+
   export type RefreshTokenResult = {
     accessToken: string;
     refreshToken: string;
   }
-  export type RefreshTokenParams = {
-    refreshToken: string;
-  }
-   export type ForgotPasswordParams = {
+
+  export type ForgotPasswordParams = {
     email: string;
   }
-  export type confirmForgotPasswordParams = {
+
+  export type ConfirmForgotPasswordParams = {
     email: string;
     confirmationCode: string;
     password: string;
+  }
+
+  export type DeleteUserParams = {
+    externalId: string;
   }
 }

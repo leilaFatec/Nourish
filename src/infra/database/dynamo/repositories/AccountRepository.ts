@@ -1,6 +1,6 @@
 import { Account } from "@application/entities/Account";
 import { PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
-import {  dynamoClient } from "@infra/gateways/clients/dynamoClient";
+import {  dynamoClient } from "@infra/clients/dynamoClient";
 import { Injectable } from "@kernel/decorators/Injectable";
 import { AppConfig } from "@shared/config/AppConfig";
 import { AccountItem } from "../items/AccountItem";

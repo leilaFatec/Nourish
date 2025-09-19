@@ -26,7 +26,7 @@ export class Registry{
       this.providers.set(token, {impl, deps});
     }
     
-    resolve<Timpl extends Constructor>(impl: Timpl): InstanceType<Timpl> {
+    resolve<TImpl extends Constructor>(impl: TImpl): InstanceType<TImpl> {
       const token = impl.name;
       const provider = this.providers.get(token);
 
@@ -35,6 +35,7 @@ export class Registry{
       }
       const deps = provider.deps.map(dep => this.resolve(dep));
       const instance = new provider.impl(...deps);
+      
       return instance;  
 
     }

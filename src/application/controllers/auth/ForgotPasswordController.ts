@@ -3,7 +3,6 @@ import { ForgotPasswordUseCase } from '@application/usecases/auth/ForgotPassword
 import { Injectable } from '@kernel/decorators/Injectable';
 import { Schema } from '@kernel/decorators/Schema';
 import { ForgotPasswordBody, forgotPasswordSchema } from './schemas/forgotPasswordSchema';
-import { BadRequest } from '@application/errors/http/BadRequest';
 
 @Injectable()
 @Schema(forgotPasswordSchema)
@@ -25,8 +24,7 @@ export class ForgotPasswordController extends Controller<'public', ForgotPasswor
 
        return {
       statusCode: 204,
-     }; 
-    
+     };     
   }
 }
 

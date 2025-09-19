@@ -1,5 +1,5 @@
 createMeal:
-  handler: ./src/main/functions/meals/createMeal.handler
+  handler: src/main/functions/meals/createMeal.handler
   events:
     - httpApi:
         method: POST
