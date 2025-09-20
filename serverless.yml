@@ -33,7 +33,8 @@ build:
 
 functions:
   - ${file(./sls/functions/auth.yml)}
-
+  - ${file(./sls/functions/meals.yml)}
+  - ${file(./sls/functions/accounts.yml)}
 
 
 resources:

@@ -3,7 +3,12 @@ statements:
     Action: 
       - dynamodb:PutItem
       - dynamodb:Query
+      
     Resource:
       - !GetAtt MainTable.Arn
       - !Sub '${MainTable.Arn}/index/*'
-      
+  - Effect: Allow
+    Action: cognito-idp:AdminDeleUser
+    Resource: !GetAtt UserPool.Arn
+       
+            
