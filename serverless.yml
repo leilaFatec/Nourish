@@ -35,12 +35,19 @@ functions:
   - ${file(./sls/functions/auth.yml)}
   - ${file(./sls/functions/meals.yml)}
   - ${file(./sls/functions/accounts.yml)}
+  - ${file(./sls/functions/profiles.yml)}
+  - ${file(./sls/functions/goals.yml)}
+  
+
 
 
 resources:
   - ${file(./sls/resources/UserPool.yml)}
   - ${file(./sls/resources/MainTable.yml)}
   - ${file(./sls/resources/APIGWCustomDomain.yml)}
+  - ${file(./sls/resources/NourishBucket.yml)}
+
+ 
  
   
 

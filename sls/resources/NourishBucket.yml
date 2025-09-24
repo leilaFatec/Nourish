@@ -1,0 +1,6 @@
+Resources:
+  NourishBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: nourish-dev-nourishbucket
