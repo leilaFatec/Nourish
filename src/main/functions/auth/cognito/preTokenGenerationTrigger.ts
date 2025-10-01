@@ -1,13 +1,13 @@
-import { PreTokenGenerationV2TriggerEvent } from "aws-lambda";
+import { PreTokenGenerationV2TriggerEvent } from 'aws-lambda';
 
-export async function handler(event: PreTokenGenerationV2TriggerEvent) { 
+export async function handler(event: PreTokenGenerationV2TriggerEvent) {
   event.response = {
     claimsAndScopeOverrideDetails: {
-        accessTokenGeneration: {
-            claimsToAddOrOverride: {
-              internalId: event.request.userAttributes['custom:internalId'],
-            },
+      accessTokenGeneration: {
+        claimsToAddOrOverride: {
+          internalId: event.request.userAttributes['custom:internalId'],
         },
+      },
     },
   };
 

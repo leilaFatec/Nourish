@@ -1,14 +1,16 @@
+import 'reflect-metadata';
+
 import { APIGatewayProxyEventV2, APIGatewayProxyEventV2WithJWTAuthorizer, APIGatewayProxyResultV2 } from 'aws-lambda';
 import { ZodError } from 'zod';
 
 import { Controller } from '@application/contracts/Controller';
+import { ApplicationError } from '@application/errors/application/ApplicationError';
 import { ErrorCode } from '@application/errors/ErrorCode';
 import { HttpError } from '@application/errors/http/HttpError';
 import { Registry } from '@kernel/di/Registry';
 import { lambdaBodyParser } from '@main/utils/lambdaBodyParser';
 import { lambdaErrorResponse } from '@main/utils/lambdaErrorResponse';
 import { Constructor } from '@shared/types/Constructor';
-import { ApplicationError } from '@application/errors/application/ApplicationError';
 
 type Event = APIGatewayProxyEventV2 | APIGatewayProxyEventV2WithJWTAuthorizer;
 

@@ -1,9 +1,9 @@
-import {ErrorCode} from '@application/errors/ErrorCode';
-import { ApplicationError} from './ApplicationError';
+import { ErrorCode } from '../ErrorCode';
+import { ApplicationError } from './ApplicationError';
 
-export class InvalidCredentials extends ApplicationError{
+export class InvalidCredentials extends ApplicationError {
   public override statusCode = 401;
-  
+
   public override code: ErrorCode;
 
   constructor() {
@@ -11,6 +11,6 @@ export class InvalidCredentials extends ApplicationError{
 
     this.name = 'InvalidCredentials';
     this.message = 'Invalid credentials';
-    this.code =  ErrorCode.INVALID_CREDENTIALS;
+    this.code = ErrorCode.INVALID_CREDENTIALS;
   }
 }

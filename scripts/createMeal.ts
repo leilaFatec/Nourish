@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import { promises as fs } from 'fs';
 import path from 'path';
 
 const API_URL = 'https://api.backandfront.com.br/meals';
-const TOKEN = 'IQoJb3JpZ2luX2VjEML//////////wEaCXNhLWVhc3QtMSJGMEQCICIfPnKmN6asnwWmFeEWb8I4c6v4QrJaGelFOQQSLopLAiAjWCr9SqnOYDTdLwliw522NGH5Bpe/tMzq5/hcHaJslCqAAwhLEAAaDDYwNjAxMDE4MTcwMSIMKXCWTKLXLWevdzkSKt0CRkxlu9sVyKrI8txBuEGL2LAZZR12UB4F2ISnepXF0jDKR0V478IdON0+wWbk0hgrRMNvaKw2pqzuBm0FmL9KINsIXg1OQPSFO1IH/X2co3Vz4YYLbmw1Pl+zNxWZM2fdVvbJjoZaQGUEHF4bwRKP2eDTC1e40f4MH+NC2PphINuydv7Fex4ZKQThHPGmU+IobfsuVy6w1b//Nfi3wy4dDm7gLgdQsuDMONujSDhND/vaUX0zCoD2bBwPABHNgumWDMIGmUehcwgC1wo3BjZO7EZN0bHLDMJvIYFjyKXHut8D+HYcfQ/LQwbnUUa7BIVbOlNgolNnNZUm4jC486skCYWn8aqBIpSomdGqW14kCYGo+ko4f6kdRXHhnJPpiWggrb9WWR47RPhW+RhSwK2xjD7ayZMroHXPyB1xPw94dJ2epET34g0+uai8i1suU8INXBndgkX9ZgUo02D9bzDZv8vGBjqfAYOG1G5SeFY7gl8gvRB7rQyjAFHDqGDg4KbsdyllzRQBwDNyBd+7EuA0yiyN9kAQG/6A+3aFVw0wUqWQQ+Q8eFtiMoXuBR6+wfcQvXfdr+CQA2w/PBU9LLbk5MyXgH8C/zG/KF94sIAAq8xLD+BuuBv+VVDwVpB4do6CJwQByqZxf6VmHjzsYdNvOYo5pF7tEdQO5mbWYkiizDZ31PRvNw==';
+const TOKEN = "eyJraWQiOiJFVmVQS3F0OG1QM2I3ZUVueDZYZjdqN29vbGwyMnFYYnBocVRiZzgyMFwvcz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxMzZjNGEzYS0xMGUxLTcwMmItMmNlYi0wZTMzYmM3YmE4ZjMiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuc2EtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3NhLWVhc3QtMV93cXpBZnc5aWEiLCJjbGllbnRfaWQiOiI2ZzY4amZtNjA1ZjVvcHQ2NmFoYmc2OWF1dCIsIm9yaWdpbl9qdGkiOiJlYzU1MjA3Yi05NTRhLTRhZDQtODY4OC02YWM1MDhmZmZlMGUiLCJpbnRlcm5hbElkIjoiMzNGMVJkRWdQZVVTalZOWnRsbVpkYmJ3eVV3IiwiZXZlbnRfaWQiOiIxODhiZGQxNi0zOTFmLTRmMTAtODZjNS1mZmMyMzU0ZDVjYjMiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIiwiYXV0aF90aW1lIjoxNzU4ODk4MjE5LCJleHAiOjE3NTg5NDE0MTksImlhdCI6MTc1ODg5ODIxOSwianRpIjoiMTc1M2M1NjgtYjM1NS00NTNkLWI1OTgtZDIwYzQ3NTcyNzU5IiwidXNlcm5hbWUiOiIxMzZjNGEzYS0xMGUxLTcwMmItMmNlYi0wZTMzYmM3YmE4ZjMifQ.sk2ysgWtUDlISq_PLGivbaj24C840BQzx_THYQ5mSgmXLCMNxzhwraco0KEK-eYgVJ-fXLI6OMBlOEWrLJR6X1ALio1cdG0eitCDjMd25yvjHjzoQbOaUN8PaH8oWRdDO4h93495qv63O6mUQJPY5pFgF9XKIGnHQRweuptKkuEFy5enoU6tqSHVJKynfxzH7Ia7zgyZzZCYqgTEsAtu7junxwdZ1xXwIe7p5tt32Bu6-qfAHqCzTFPOAuPA_l0EXDfsic11ns_KCL19oq5qJf7vn2sptktXml0JtEXYq6xMpKBsTfAAEejQm87bfng6BL90uk194KkXfIM-2qOv-w";
+
 interface IPresignResponse {
   uploadSignature: string;
 }
@@ -59,16 +61,26 @@ function buildFormData(
   filename: string,
   fileType: string,
 ): FormData {
-  console.log(`📦 Building FormData with ${Object.keys(fields).length} fields and file ${filename}`);
+  console.log(
+    `📦 Building FormData with ${Object.keys(fields).length} fields and file ${filename}`,
+  );
+
   const form = new FormData();
+
+  // adiciona os campos de texto
   for (const [key, value] of Object.entries(fields)) {
     form.append(key, value);
-    
   }
+
+  // converte Buffer → Uint8Array para ser aceito como BlobPart
   const blob = new Blob([new Uint8Array(fileData)], { type: fileType });
-  form.append('file', blob, filename);
+
+  // adiciona o arquivo
+  form.append("file", blob, filename);
+
   return form;
 }
+
 
 async function uploadToS3(url: string, form: FormData): Promise<void> {
   console.log(`📤 Uploading to S3 at ${url}`);
@@ -98,6 +110,6 @@ async function uploadFile(filePath: string, fileType: 'audio/m4a' | 'image/jpeg'
 }
 
 uploadFile(
-  path.resolve(__dirname, 'assets', 'cover.jpg'),
-  'image/jpeg',
+  path.resolve(__dirname, 'assets', 'audio.m4a'),
+  'audio/m4a',
 ).catch(() => process.exit(1));

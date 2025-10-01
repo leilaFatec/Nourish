@@ -6,20 +6,20 @@ Resources:
       DeletionProtection: ACTIVE
       MfaConfiguration: OFF
       AutoVerifiedAttributes:
-        - email 
+        - email
       AdminCreateUserConfig:
         AllowAdminCreateUserOnly: false
       UsernameAttributes:
-        - email  
-      AccountRecoverySetting: 
+        - email
+      AccountRecoverySetting:
         RecoveryMechanisms:
           - Name: verified_email
             Priority: 1
-      Schema: 
+      Schema:
         - Name: internalId
           Required: false
           Mutable: false
-          AttributeDataType: String    
+          AttributeDataType: String
       Policies:
         PasswordPolicy:
           MinimumLength: 8
@@ -29,20 +29,20 @@ Resources:
           RequireUppercase: false
       LambdaConfig:
         PreTokenGenerationConfig:
-          LambdaArn: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-${self:provider.stage}-preTokenGenerationTrigger' 
+          LambdaArn: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-${self:provider.stage}-preTokenGenerationTrigger'
           LambdaVersion: V2_0
       EmailConfiguration:
         EmailSendingAccount: DEVELOPER
-        From: ${env:COGNITO_EMAILS_FROM}  
-        ReplyToEmailAddress: ${env:COGNITO_EMAILS_REPLY_TO}        
-        SourceArn: ${env:SES_ARN}   
+        From: ${env:COGNITO_EMAILS_FROM}
+        ReplyToEmailAddress: ${env:COGNITO_EMAILS_REPLY_TO}
+        SourceArn: ${env:SES_ARN}
 
   PreTokenGenerationLambdaPermission:
     Type: AWS::Lambda::Permission
     DependsOn: PreTokenGenerationTriggerLambdaFunction
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-${self:provider.stage}-preTokenGenerationTrigger' 
+      FunctionName: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-${self:provider.stage}-preTokenGenerationTrigger'
       Principal: cognito-idp.amazonaws.com
       SourceArn: !GetAtt UserPool.Arn
 

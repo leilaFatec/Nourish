@@ -14,5 +14,3 @@ export async function handler(event: CustomMessageTriggerEvent) {
 
   return event;
 }
-
-

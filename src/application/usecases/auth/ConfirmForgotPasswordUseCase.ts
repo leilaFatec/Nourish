@@ -12,10 +12,10 @@ export class ConfirmForgotPasswordUseCase {
     confirmationCode,
     password,
   }: ConfirmForgotPasswordUseCase.Input): Promise<ConfirmForgotPasswordUseCase.Output> {
-    await this.authGateway.confirmForgotPassword({ 
-      email, 
+    await this.authGateway.confirmForgotPassword({
+      email,
       confirmationCode,
-      password 
+      password,
     });
   }
 }

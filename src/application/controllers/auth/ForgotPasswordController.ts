@@ -18,13 +18,13 @@ export class ForgotPasswordController extends Controller<'public', ForgotPasswor
       const { email } = body;
 
       await this.forgotPasswordUseCase.execute({ email });
-       } catch {
+    } catch {
       //
-    } 
+    }
 
-       return {
+    return {
       statusCode: 204,
-     };     
+    };
   }
 }
 

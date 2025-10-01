@@ -1,8 +1,8 @@
 {
-   "compilerOptions": {
+  "compilerOptions": {
     "outDir": "dist",
-    "target": "ES2020",
-    "module": "CommonJS",
+    "target": "es2016",
+    "module": "commonjs",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -11,14 +11,13 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "jsx": "react",
-    "baseUrl":".",
-    "paths":{
+    "baseUrl": ".",
+    "paths": {
       "@application/*": ["src/application/*"],
       "@kernel/*": ["src/kernel/*"],
       "@main/*": ["src/main/*"],
       "@shared/*": ["src/shared/*"],
       "@infra/*": ["src/infra/*"]
     }
-   }
+  }
 }
-   

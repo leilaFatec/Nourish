@@ -1,21 +1,21 @@
 import { Controller } from '@application/contracts/Controller';
+import { RefreshTokenUseCase } from '@application/usecases/auth/RefreshTokenUseCase';
 import { Injectable } from '@kernel/decorators/Injectable';
 import { Schema } from '@kernel/decorators/Schema';
-import { refreshTokenBody, refreshTokenSchema } from './schemas/refreshTokenSchema';
-import { RefreshTokenUseCase } from '@application/usecases/auth/RefreshTokenUseCase';
+import { RefreshTokenBody, refreshTokenSchema } from './schemas/refreshTokenSchema';
 
 @Injectable()
 @Schema(refreshTokenSchema)
 export class RefreshTokenController extends Controller<'public', RefreshTokenController.Response> {
-  constructor(private readonly refreshTokenUseCase: RefreshTokenUseCase) { 
+  constructor(private readonly refreshTokenUseCase: RefreshTokenUseCase) {
     super();
   }
- 
+
   protected override async handle(
-    {body} : Controller.Request<'public', refreshTokenBody>,
+    { body }: Controller.Request<'public', RefreshTokenBody>,
   ): Promise<Controller.Response<RefreshTokenController.Response>> {
     const { refreshToken } = body;
-    
+
     const {
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
@@ -28,14 +28,14 @@ export class RefreshTokenController extends Controller<'public', RefreshTokenCon
       body: {
         accessToken: newAccessToken,
         refreshToken: newRefreshToken,
-     },
+      },
     };
-   }
   }
-  
-  export namespace RefreshTokenController {
-    export type Response = {
-      accessToken: string;
-      refreshToken: string;
-    }
+}
+
+export namespace RefreshTokenController {
+  export type Response = {
+    accessToken: string;
+    refreshToken: string;
   }
+}

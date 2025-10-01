@@ -1,9 +1,9 @@
-import {ErrorCode} from '@application/errors/ErrorCode';
-import { ApplicationError} from './ApplicationError';
+import { ErrorCode } from '../ErrorCode';
+import { ApplicationError } from './ApplicationError';
 
-export class InvalidRefreshToken extends ApplicationError{
+export class InvalidRefreshToken extends ApplicationError {
   public override statusCode = 401;
-  
+
   public override code: ErrorCode;
 
   constructor() {
@@ -11,6 +11,6 @@ export class InvalidRefreshToken extends ApplicationError{
 
     this.name = 'InvalidRefreshToken';
     this.message = 'Invalid Refresh Token';
-    this.code =  ErrorCode.INVALID_REFRESH_TOKEN;
+    this.code = ErrorCode.INVALID_REFRESH_TOKEN;
   }
 }

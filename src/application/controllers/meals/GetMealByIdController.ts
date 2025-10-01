@@ -1,7 +1,7 @@
 import { Controller } from '@application/contracts/Controller';
 import { Meal } from '@application/entities/Meal';
-import { Injectable } from '@kernel/decorators/Injectable';
 import { GetMealByIdUseCase } from '@application/usecases/meals/GetMealByIdUseCase';
+import { Injectable } from '@kernel/decorators/Injectable';
 
 @Injectable()
 export class GetMealByIdController extends Controller<'private', GetMealByIdController.Response> {
@@ -10,7 +10,7 @@ export class GetMealByIdController extends Controller<'private', GetMealByIdCont
   }
 
   protected override async handle({
-    accountId, 
+    accountId,
     params,
   }: GetMealByIdController.Request): Promise<Controller.Response<GetMealByIdController.Response>> {
     const { mealId } = params;
@@ -18,7 +18,7 @@ export class GetMealByIdController extends Controller<'private', GetMealByIdCont
     const { meal } = await this.getMealByIdUseCase.execute({
       accountId,
       mealId,
-     });
+    });
 
     return {
       statusCode: 200,
@@ -29,7 +29,6 @@ export class GetMealByIdController extends Controller<'private', GetMealByIdCont
         },
       },
     };
-    
   }
 }
 
@@ -39,17 +38,17 @@ export namespace GetMealByIdController {
   }
 
   export type Request = Controller.Request<
-  'private',
-   Record<string, unknown>,
-   GetMealByIdController.Params
+    'private',
+    Record<string, unknown>,
+    GetMealByIdController.Params
   >;
-  
+
   export type Response = {
     meal: {
       id: string;
-      status: Meal.Status;      
+      status: Meal.Status;
       inputType: Meal.InputType;
-      inputFileKey: string;
+      inputFileURL: string;
       name: string;
       icon: string;
       foods: Meal.Food[];

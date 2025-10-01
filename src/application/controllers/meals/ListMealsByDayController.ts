@@ -1,9 +1,8 @@
 import { Controller } from '@application/contracts/Controller';
 import { Meal } from '@application/entities/Meal';
-import { Injectable } from '@kernel/decorators/Injectable';
-import { CreateMealBody, createMealSchema } from './schemas/createMealSchema';
-import { listMealsByDaySchema } from './schemas/listMealsByDaySchema';
 import { ListMealsByDayQuery } from '@application/query/ListMealsByDayQuery';
+import { Injectable } from '@kernel/decorators/Injectable';
+import { listMealsByDaySchema } from './schemas/listMealsByDaySchema';
 
 @Injectable()
 export class ListMealsByDayController extends Controller<'private', ListMealsByDayController.Response> {
@@ -15,9 +14,9 @@ export class ListMealsByDayController extends Controller<'private', ListMealsByD
     accountId,
     queryParams,
   }: Controller.Request<'private'>): Promise<Controller.Response<ListMealsByDayController.Response>> {
-    const {date} = listMealsByDaySchema.parse(queryParams);
+    const { date } = listMealsByDaySchema.parse(queryParams);
 
-    const {meals} = await this.listMealsByDayQuery.execute({
+    const { meals } = await this.listMealsByDayQuery.execute({
       accountId,
       date,
     });
@@ -28,19 +27,17 @@ export class ListMealsByDayController extends Controller<'private', ListMealsByD
         meals,
       },
     };
-    
   }
 }
 
 export namespace ListMealsByDayController {
   export type Response = {
     meals: {
-    id: string;
-    createdAt: string;
-    name: string;
-    icon: string;
-    foods: Meal.Food[];
-
-  }[];
+      id: string;
+      createdAt: string;
+      name: string;
+      icon: string;
+      foods: Meal.Food[];
+    }[];
   }
 }

@@ -1,6 +1,6 @@
-import KSUID from "ksuid";
+import KSUID from 'ksuid';
 
-export class Meal{
+export class Meal {
   readonly id: string;
 
   readonly accountId: string;
@@ -9,9 +9,9 @@ export class Meal{
 
   attempts: number;
 
-  inputType: Meal.InputType;
+  readonly inputType: Meal.InputType;
 
-  inputFileKey: string;
+  readonly inputFileKey: string;
 
   name: string;
 
@@ -21,46 +21,46 @@ export class Meal{
 
   readonly createdAt: Date;
 
-
   constructor(attr: Meal.Attributes) {
-    this.id = attr.id ?? KSUID.randomSync().string; 
+    this.id = attr.id ?? KSUID.randomSync().string;
     this.accountId = attr.accountId;
     this.status = attr.status;
-    this.attempts = attr.attempts ?? 0;
     this.inputType = attr.inputType;
     this.inputFileKey = attr.inputFileKey;
+    this.attempts = attr.attempts ?? 0;
     this.name = attr.name ?? '';
     this.icon = attr.icon ?? '';
-    this.foods = attr.foods?? [];    
+    this.foods = attr.foods ?? [];
+
     this.createdAt = attr.createdAt ?? new Date();
   }
-  
 }
 
 export namespace Meal {
   export type Attributes = {
-    readonly accountId: string;
+    accountId: string;
     status: Meal.Status;
-    attempts?: number;
     inputType: Meal.InputType;
     inputFileKey: string;
+    attempts?: number;
     name?: string;
     icon?: string;
-    foods?: Meal.Food[];    
+    foods?: Meal.Food[];
     id?: string;
     createdAt?: Date;
-  };  
+  };
+
   export enum Status {
     UPLOADING = 'UPLOADING',
-    QUEUEO = 'QUEUEO',
+    QUEUED = 'QUEUED',
     PROCESSING = 'PROCESSING',
-    SUCESS = 'SUCESS',
+    SUCCESS = 'SUCCESS',
     FAILED = 'FAILED',
   }
 
-  export enum InputType{  
+  export enum InputType {
     AUDIO = 'AUDIO',
-    PICTURE = 'PICTURE',  
+    PICTURE = 'PICTURE',
   }
 
   export type Food = {
@@ -70,6 +70,5 @@ export namespace Meal {
     proteins: number;
     carbohydrates: number;
     fats: number;
-
   };
 }

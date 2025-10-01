@@ -4,4 +4,3 @@ import { ConfirmForgotPasswordController } from '@application/controllers/auth/C
 import { lambdaHttpAdapter } from '@main/adapters/lambdaHttpAdapter';
 
 export const handler = lambdaHttpAdapter(ConfirmForgotPasswordController);
-

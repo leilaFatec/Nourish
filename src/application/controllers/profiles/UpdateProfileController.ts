@@ -2,7 +2,7 @@ import { Controller } from '@application/contracts/Controller';
 import { UpdateProfileUseCase } from '@application/usecases/profiles/UpdateProfileUseCase';
 import { Injectable } from '@kernel/decorators/Injectable';
 import { Schema } from '@kernel/decorators/Schema';
-import { UpdateProfileBody, updateProfileSchema } from './schemas/UpdateProfileSchema';
+import { UpdateProfileBody, updateProfileSchema } from './schemas/updateProfileSchema';
 
 @Injectable()
 @Schema(updateProfileSchema)

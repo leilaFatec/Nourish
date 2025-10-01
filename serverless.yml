@@ -8,7 +8,7 @@ provider:
   memorySize: 128
   stage: ${opt:stage, 'dev'}
   environment: ${file(./sls/config/env.yml)}
-  iam: 
+  iam:
     role: ${file(./sls/config/role.yml)}
   httpApi:
     disableDefaultEndpoint: ${env:DISABLE_DEFAULT_APIGW_ENDPOINT, false}
@@ -25,11 +25,11 @@ package:
 
 custom:
   cognito:
-    PoolName: ${self:service}-${self:provider.stage}-UserPool  
+    PoolName: ${self:service}-${self:provider.stage}-UserPool
 
-build: 
+build:
   esbuild:
-    configFile: ./esbuild.config.mjs     
+    configFile: ./esbuild.config.mjs
 
 functions:
   - ${file(./sls/functions/auth.yml)}
@@ -37,22 +37,12 @@ functions:
   - ${file(./sls/functions/accounts.yml)}
   - ${file(./sls/functions/profiles.yml)}
   - ${file(./sls/functions/goals.yml)}
-  
-
-
 
 resources:
   - ${file(./sls/resources/UserPool.yml)}
   - ${file(./sls/resources/MainTable.yml)}
   - ${file(./sls/resources/APIGWCustomDomain.yml)}
   - ${file(./sls/resources/NourishBucket.yml)}
-
- 
- 
-  
-
-  
-
-
-           
-
+  - ${file(./sls/resources/MealsBucketCDN.yml)}
+  - ${file(./sls/resources/MealsQueue.yml)}
+  - ${file(./sls/resources/DLQAlarmsTopic.yml)}
