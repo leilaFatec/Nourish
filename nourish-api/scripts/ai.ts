@@ -6,11 +6,11 @@ const client = new OpenAI();
 
 async function main() {
   const response = await client.chat.completions.create({
-    model: 'gpt-5-nano',
+    model: 'gpt-5 nano',
     messages: [
       {
         role: 'system',
-        content: 'Sempre responda o usuário de forma informal.',
+        content: 'Sempre responda o usuário utilizando gírias.',
       },
       {
         role: 'assistant',
